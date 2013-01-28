@@ -34,6 +34,7 @@ import com.sojanddesign.boxes.domain.model.user.User;
 import com.sojanddesign.boxes.domain.model.user.UserId;
 
 /**
+ * Class test of Box aggregate (Box-Element-Project)
  * @author Marie Acevedo (http://www.sojanddesign.com)
  * 
  */
@@ -131,24 +132,6 @@ public class BoxAggregateTest {
 		assertEquals(7, inbox.getElements().size());
 	}
 
-	/**
-	 * The user uses the application for the first time only the inbox there.
-	 * 
-	 * @throws DomainException
-	 */
-	@Test
-	public void testFailCollectCausedByElementNull() {
-		try {
-			Box inbox = createInbox();
-			inbox.putIn(null);
-			fail("a DomainException is expected.");
-		} catch (DomainException e) {
-			assertEquals("The element put in the box is null.", e.getMessage());
-			e.printStackTrace();
-		}
-
-	}
-	
 	@Test
 	public void testCreateDefaultBox() {
 		Box inbox = null;
@@ -179,10 +162,41 @@ public class BoxAggregateTest {
 	}
 
 	@Test
-	public void testFailCreateBoxBoxIdNull() {
-		Box inbox = null;
+	public void testCreateTrashBox() {
+		Box trash = null;
 		try {
-			inbox = new Box(null, "inbox of stuff", user, TypeBox.INBOX);
+			trash = new Box(new BoxId("2"), "trash", user, TypeBox.TRASH);
+			assertEquals(TypeBox.TRASH, trash.getType());
+			assertEquals(TrashManagementPolicy.class, trash.getPolicy()
+					.getClass());
+		} catch (DomainException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * The user uses the application for the first time only the inbox there.
+	 * 
+	 * @throws DomainException
+	 */
+	@Test
+	public void testFailCollectCausedByElementNull() {
+		try {
+			Box inbox = createInbox();
+			inbox.putIn(null);
+			fail("a DomainException is expected.");
+		} catch (DomainException e) {
+			assertEquals("The element put in the box is null.", e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test
+	public void testFailCreateBCausedByBoxIdNull() {
+		try {
+			Box inbox = new Box(null, "inbox of stuff", user, TypeBox.INBOX);
 			fail("DomainException not throw");
 		} catch (DomainException e) {
 			assertEquals("uniqueIdentifier of Entity must be not null",
@@ -192,23 +206,9 @@ public class BoxAggregateTest {
 	}
 
 	@Test
-	public void testFailCreateIdBlank() {
-		Box inbox = null;
+	public void testFailCreateCausedByIdBlank() {
 		try {
-			inbox = new Box(new BoxId(""), "inbox of stuff", user,
-					TypeBox.INBOX);
-			fail("DomainException not throw");
-		} catch (DomainException e) {
-			assertEquals("id of BoxId must be not null", e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testFailCreateIdNull() {
-		Box inbox = null;
-		try {
-			inbox = new Box(new BoxId(null), "inbox of stuff", user,
+			Box inbox = new Box(new BoxId(""), "inbox of stuff", user,
 					TypeBox.INBOX);
 			fail("DomainException not throw");
 		} catch (DomainException e) {
@@ -218,7 +218,38 @@ public class BoxAggregateTest {
 	}
 
 	@Test
-	public void testPullInBox() throws DomainException{
+	public void testFailCreateCausedByIdNull() {
+		try {
+			Box inbox = new Box(new BoxId(null), "inbox of stuff", user,
+					TypeBox.INBOX);
+			fail("DomainException not throw");
+		} catch (DomainException e) {
+			assertEquals("id of BoxId must be not null", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testFailPullInboxCausedByNotEltLastIn() {
+		try {
+			Box inbox = createInbox();
+			// creating the element collected
+			collect(inbox);
+			inbox.pull(inbox.findElementById(new ElementId("2")));
+			fail("a NotExpectedElementException is expected.");
+		} catch (NotExpectedElementException e) {
+			assertEquals(
+					"The element pull of the box is not the last in element. Call 'nextElement' to get the last in.",
+					e.getMessage());
+			e.printStackTrace();
+		} catch (DomainException e) {
+			fail("a NotExpectedElementException is expected.");
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testPullInBox() throws DomainException {
 		Box inbox = createInbox();
 		// creating the element collected
 		collect(inbox);

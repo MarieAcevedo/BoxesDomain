@@ -76,7 +76,7 @@ class InboxManagementPolicy extends AbstractBoxManagementPolicy {
 			 if (elt.equals(((Stack<Element>)elements).peek())){
 				 isPull = ((Stack<Element>)elements).pop() != null;
 			 }else{
-				 throw new DomainException("The element pull of the box is not the last in element. Call 'nextElement' to get the last in.");
+				 throw new NotExpectedElementException("The element pull of the box is not the last in element. Call 'nextElement' to get the last in.");
 			 }
 		}
 		return isPull;

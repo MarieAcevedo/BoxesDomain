@@ -42,7 +42,9 @@ final class BoxManagementFactory {
 		case INBOX:
 			policy = new InboxManagementPolicy(box);
 			break;
-
+		case TRASH:
+			policy = new TrashManagementPolicy(box);
+			break;
 		default:
 			policy = new InboxManagementPolicy(box);
 			break;
