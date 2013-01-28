@@ -15,12 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Boxes Domain.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.sojanddesign.boxes.domain.model.box;
+package com.sojanddesign.boxes.domain.model.user;
 
 import java.util.List;
 
 import com.sodcube.domain.core.Entity;
 import com.sodcube.domain.exception.DomainException;
+import com.sojanddesign.boxes.domain.model.box.Box;
 
 /**
  * The system user is a root entity of user's aggregates. It's the owner of the

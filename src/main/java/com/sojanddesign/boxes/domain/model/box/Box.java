@@ -23,6 +23,7 @@ import java.util.Map;
 import com.sodcube.domain.core.Entity;
 import com.sodcube.domain.core.ValueObject;
 import com.sodcube.domain.exception.DomainException;
+import com.sojanddesign.boxes.domain.model.user.User;
 
 /**
  * Box is a domain root entity of box's aggregates. A box contains a list of
@@ -217,8 +218,9 @@ public class Box extends Entity<BoxId> {
 
 	/**
 	 * @return the next element's box 
+	 * @throws NoBehaviorException 
 	 */
-	public Element nextElement() {
+	public Element nextElement() throws NoBehaviorException {
 		return policy.nextElement();
 	}
 	

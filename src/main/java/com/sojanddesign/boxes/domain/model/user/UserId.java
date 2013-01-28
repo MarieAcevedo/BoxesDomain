@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Boxes Domain.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.sojanddesign.boxes.domain.model.box;
+package com.sojanddesign.boxes.domain.model.user;
 
 import com.sodcube.domain.core.DomainObject;
 import com.sodcube.domain.core.ValueObject;

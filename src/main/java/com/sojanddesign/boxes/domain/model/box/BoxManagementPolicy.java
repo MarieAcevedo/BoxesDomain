@@ -52,7 +52,8 @@ interface BoxManagementPolicy {
 	
 	/**
 	 * @return the next element's box to manage 
+	 * @throws NoBehaviorException if behavior is not implemented for a type of box
 	 */
-	Element nextElement();
+	Element nextElement() throws NoBehaviorException;
 
 }

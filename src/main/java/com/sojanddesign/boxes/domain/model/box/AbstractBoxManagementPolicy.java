@@ -17,29 +17,37 @@
  */
 package com.sojanddesign.boxes.domain.model.box;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import com.sodcube.domain.exception.DomainException;
 
 /**
- * InBoxManagementPolicy is policy for Inbox and have to manage Element's Stack (LIFO) 
+ * AbstractBoxManagementPolicy is an abstract strategy for a {@link Box} and have to manage {@link Element}.
+ * Define the default behavior when {@link List<Element>} is implemented by an {@link ArrayList<Element>}
  * @author Marie Acevedo (http://www.sojanddesign.com)
  * @version 28 Jan. 2013 - 0.1
  *
  */
-class InboxManagementPolicy extends AbstractBoxManagementPolicy {
+abstract class AbstractBoxManagementPolicy implements BoxManagementPolicy {
+
+	/**
+	 * Box that is managing by the current policy
+	 */
+	protected Box managedBox;
 
 	/**
 	 * Default constructor.
-	 * @param box box to manage
+	 * 
+	 * @param box
+	 *            box to manage
 	 */
-	InboxManagementPolicy(Box box) {
-		super(box);
+	AbstractBoxManagementPolicy(Box box) {
+		this.managedBox = box;
 	}
 
 	/**
-	 * Pushes an Element onto the top of the stack. If stack is null, it creates one.
+	 * Add an Element in the list. If list is null, it creates one.
 	 * @param elt Element as specified in {@link BoxManagementPolicy}
 	 * @return true if the specified element is put in the box.
 	 * @throws DomainException if element specified is null
@@ -52,10 +60,10 @@ class InboxManagementPolicy extends AbstractBoxManagementPolicy {
 		}
 		List<Element> elements = managedBox.getElements();
 		if(elements == null) {
-			elements = new Stack<Element>();
+			elements = new ArrayList<Element>();
 			managedBox.setElements(elements);
 		}
-		return ((Stack<Element>)elements).push(elt) != null;
+		return elements.add(elt);
 	}
 
 	/**
@@ -73,28 +81,18 @@ class InboxManagementPolicy extends AbstractBoxManagementPolicy {
 		boolean isPull = false;
 		List<Element> elements = managedBox.getElements();
 		if(elements != null && !elements.isEmpty()){
-			 if (elt.equals(((Stack<Element>)elements).peek())){
-				 isPull = ((Stack<Element>)elements).pop() != null;
-			 }else{
-				 throw new DomainException("The element pull of the box is not the last in element. Call 'nextElement' to get the last in.");
-			 }
+			 isPull = elements.remove(elt);
 		}
 		return isPull;
 	}
 
 	/**
-	 * Get the last in element
-	 * @return the last in element on the stack
-	 * @see com.sojanddesign.boxes.domain.model.box.box.BoxManagementPolicy#nextElement()
+	 * @throws NoBehaviorException no default behavior 
+	 * @see com.sojanddesign.boxes.domain.model.box.BoxManagementPolicy#nextElement()
 	 */
 	@Override
-	public Element nextElement() {
-		List<Element> elements = managedBox.getElements();
-		Element eltFounded = null;
-		if(elements != null && !elements.isEmpty()){
-			eltFounded = ((Stack<Element>)elements).peek();
-		}
-		return eltFounded;
+	public Element nextElement() throws NoBehaviorException {
+		throw new NoBehaviorException("No default behavior for method BoxManagementPoliy.nextElement.");
 	}
 
 }
