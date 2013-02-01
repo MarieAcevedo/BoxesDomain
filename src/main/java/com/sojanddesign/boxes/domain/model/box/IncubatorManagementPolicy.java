@@ -18,43 +18,19 @@
 package com.sojanddesign.boxes.domain.model.box;
 
 /**
- * Simple factory of BoxManagementPolicy.
- * 
+ * IncubatorManagementPolicy is a default box management strategy.
+ * @see AbstractBoxManagementPolicy
  * @author Marie Acevedo (http://www.sojanddesign.com)
- * @version 25 Jan. 2013 - 0.1
+ * @version 29 janv. 2013 - 0.1
  */
-final class BoxManagementFactory {
+class IncubatorManagementPolicy extends AbstractBoxManagementPolicy {
 
 	/**
-	 * Default private constructor
-	 */
-	private BoxManagementFactory() {
-	}
-
-	/**
-	 * Creating BoxManagementPolicy from the box specified
+	 * Default constructor.
 	 * @param box box to manage
-	 * @return the BoxManagementPolicy created
 	 */
-	final static BoxManagementPolicy createBoxManagementPolicy(Box box) {
-		BoxManagementPolicy policy = null;
-		switch (box.getType()) {
-		case INBOX:
-			policy = new InboxManagementPolicy(box);
-			break;
-		case TRASH:
-			policy = new TrashManagementPolicy(box);
-			break;
-		case INCUBATOR:
-			policy = new IncubatorManagementPolicy(box);
-			break;
-		case NEXT_ACTIONS:
-			policy = new NextActionsManagementPolicy(box);
-			break;
-		default:
-			policy = new InboxManagementPolicy(box);
-			break;
-		}
-		return policy;
+	public IncubatorManagementPolicy(Box box) {
+		super(box);
 	}
+
 }

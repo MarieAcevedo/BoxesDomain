@@ -48,7 +48,6 @@ public class BoxAggregateTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		user = new User(new UserId("1"));
-		user.setName("Jone Doe");
 	}
 
 	/**
@@ -60,28 +59,28 @@ public class BoxAggregateTest {
 
 	private void collect(Box inbox) throws DomainException {
 		// creating the element collected
-		Element elt = new Element(new ElementId("1"));
+		Element elt = new Element(new ElementId("1"), inbox);
 		elt.setEntitled("lire le livre de Adam Bien");
-		inbox.putIn(elt);
+		elt.collect();
 		// in gtd thetreatment of element's inbox is LIFO => Stack
-		elt = new Element(new ElementId("2"));
+		elt = new Element(new ElementId("2"), inbox);
+		elt.collect();
 		elt.setEntitled("facture de l'hopital");
-		inbox.putIn(elt);
-		elt = new Element(new ElementId("3"));
+		elt = new Element(new ElementId("3"), inbox);
 		elt.setEntitled("promotion SAV Honda");
-		inbox.putIn(elt);
-		elt = new Element(new ElementId("4"));
+		elt.collect();
+		elt = new Element(new ElementId("4"), inbox);
 		elt.setEntitled("Appeler pédiatre");
-		inbox.putIn(elt);
-		elt = new Element(new ElementId("5"));
+		elt.collect();
+		elt = new Element(new ElementId("5"), inbox);
 		elt.setEntitled("me mettre à la poubelle");
-		inbox.putIn(elt);
-		elt = new Element(new ElementId("6"));
+		elt.collect();
+		elt = new Element(new ElementId("6"), inbox);
 		elt.setEntitled("un jour peut être on changera de maison");
-		inbox.putIn(elt);
-		elt = new Element(new ElementId("7"));
+		elt.collect();
+		elt = new Element(new ElementId("7"), inbox);
 		elt.setEntitled("à classer dans les références");
-		inbox.putIn(elt);
+		elt.collect();
 	}
 
 	/**
@@ -257,6 +256,23 @@ public class BoxAggregateTest {
 		assertEquals("7", elt.getUniqueIdentifier().getId());
 		inbox.pull(elt);
 		assertEquals(6, inbox.getElements().size());
+	}
+	
+	@Test
+	public void testEliminateCollectedElement() throws DomainException {
+		Box inbox = createInbox();
+		Box trash = new Box(new BoxId("2"), "trash", user, TypeBox.TRASH);
+		user.setBoxes(new ArrayList<Box>());
+		user.getBoxes().add(inbox);
+		user.getBoxes().add(trash);
+		// creating the element collected
+		collect(inbox);
+		assertEquals(7, inbox.getElements().size());
+		assertEquals(null,trash.getElements());
+		Element elt = inbox.nextElement();
+		elt.eleminate();
+		assertEquals(6, inbox.getElements().size());
+		assertEquals(1, trash.getElements().size());
 	}
 
 }

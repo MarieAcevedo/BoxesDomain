@@ -15,46 +15,38 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Framework So'D Cube.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.sojanddesign.boxes.domain.model.box;
+package com.sojanddesign.boxes.domain.model.user;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.jbehave.core.junit.JUnitStories;
+import org.jbehave.core.steps.InjectableStepsFactory;
+import org.jbehave.core.steps.InstanceStepsFactory;
+import org.junit.runner.RunWith;
+
+import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
 /**
- * Simple factory of BoxManagementPolicy.
- * 
+ * TODO BoxesUserCreate
  * @author Marie Acevedo (http://www.sojanddesign.com)
- * @version 25 Jan. 2013 - 0.1
+ * @version 30 janv. 2013 - 0.1
  */
-final class BoxManagementFactory {
+@RunWith(JUnitReportingRunner.class)
+public class BoxesUserCreate extends JUnitStories {
 
-	/**
-	 * Default private constructor
-	 */
-	private BoxManagementFactory() {
+	public BoxesUserCreate() {
+		super();
+	}
+ 
+	@Override
+	public InjectableStepsFactory stepsFactory() {
+		return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps());
+	}
+ 
+	@Override
+	protected List<String> storyPaths() {
+		return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story");
 	}
 
-	/**
-	 * Creating BoxManagementPolicy from the box specified
-	 * @param box box to manage
-	 * @return the BoxManagementPolicy created
-	 */
-	final static BoxManagementPolicy createBoxManagementPolicy(Box box) {
-		BoxManagementPolicy policy = null;
-		switch (box.getType()) {
-		case INBOX:
-			policy = new InboxManagementPolicy(box);
-			break;
-		case TRASH:
-			policy = new TrashManagementPolicy(box);
-			break;
-		case INCUBATOR:
-			policy = new IncubatorManagementPolicy(box);
-			break;
-		case NEXT_ACTIONS:
-			policy = new NextActionsManagementPolicy(box);
-			break;
-		default:
-			policy = new InboxManagementPolicy(box);
-			break;
-		}
-		return policy;
-	}
 }

@@ -15,46 +15,43 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Framework So'D Cube.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.sojanddesign.boxes.domain.model.box;
+package com.sojanddesign.boxes.domain.model.user;
+
 
 /**
- * Simple factory of BoxManagementPolicy.
- * 
+ * UserRepository is class to manage lyfe cycle of {@link User}
  * @author Marie Acevedo (http://www.sojanddesign.com)
- * @version 25 Jan. 2013 - 0.1
+ * @version 31 janv. 2013 - 0.1
  */
-final class BoxManagementFactory {
+public interface UserRepository {
+	
+	/**
+	 * Finds a user using given id
+	 * 
+	 * @param id
+	 *            user identifier
+	 * @return User if is found, else {@code null}
+	 */
+	User find(UserId id);
 
 	/**
-	 * Default private constructor
+	 * Saves given user
+	 * 
+	 * @param user
+	 *            user to save
 	 */
-	private BoxManagementFactory() {
-	}
+	void store(User user);
 
 	/**
-	 * Creating BoxManagementPolicy from the box specified
-	 * @param box box to manage
-	 * @return the BoxManagementPolicy created
+	 * @return A unique, generated user Id.
 	 */
-	final static BoxManagementPolicy createBoxManagementPolicy(Box box) {
-		BoxManagementPolicy policy = null;
-		switch (box.getType()) {
-		case INBOX:
-			policy = new InboxManagementPolicy(box);
-			break;
-		case TRASH:
-			policy = new TrashManagementPolicy(box);
-			break;
-		case INCUBATOR:
-			policy = new IncubatorManagementPolicy(box);
-			break;
-		case NEXT_ACTIONS:
-			policy = new NextActionsManagementPolicy(box);
-			break;
-		default:
-			policy = new InboxManagementPolicy(box);
-			break;
-		}
-		return policy;
-	}
+	UserId nextUserId();
+
+	/**
+	 * Finds a user using given email
+	 * @param email email that must be found
+	 * @return User if is found, else {@code null}
+	 */
+	User findByEmail(String email);
+
 }

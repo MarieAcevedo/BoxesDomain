@@ -18,9 +18,9 @@
 package com.sojanddesign.boxes.domain.model.box;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-import com.sodcube.domain.core.DomainObject;
 import com.sodcube.domain.core.Entity;
 import com.sodcube.domain.core.ValueObject;
 import com.sodcube.domain.exception.DomainException;
@@ -37,11 +37,51 @@ public class Element extends Entity<ElementId> {
 	 * generated serial version UID
 	 */
 	private static final long serialVersionUID = -7685345381197024163L;
+
+	public static final String ENTITLED_ELT_PROPERTY = "ENTITLED_ELT";
+	/**
+	 * flag if element became an action
+	 */
 	private boolean active;
+	
+	/**
+	 * day of element's collect
+	 */
 	private final Date creationDate;
+	/**
+	 * flag if action of element is done (finished)
+	 */
 	private boolean done;
+	/**
+	 * description of element
+	 */
 	private String entitled;
+	/**
+	 * Set of property participating to description
+	 */
 	private Map<String, ValueObject> properties;
+	
+	/**
+	 * element state when it is placed in the "inbox".
+	 */
+	private ElementState inboxState;
+	/**
+	 * element state when it is placed in the "trash".
+	 */
+	private ElementState trashState;
+	/**
+	 * element state when it is placed in the "incubator".
+	 */
+	private ElementState incubatorState;
+	/**
+	 * current state, default it is {@link InboxElementState}
+	 */
+	private ElementState state;
+	
+	/**
+	 * current {@link Box} containing this element
+	 */
+	private Box box;
 
 	/**
 	 * Default constructor with uniqueIdentifier. the creation date takes the
@@ -51,88 +91,46 @@ public class Element extends Entity<ElementId> {
 	 *            {@link ElementId}
 	 * @throws DomainException 
 	 */
-	public Element(ElementId uniqueIdentifier) throws DomainException {
+	public Element(ElementId uniqueIdentifier, Box box) throws DomainException {
 		super(uniqueIdentifier);
 		this.creationDate = new Date();// today
 		this.active = false;// by default is not active
+		this.inboxState = new InboxElementState(this);
+		this.trashState = new TrashElementState(this);
+		this.incubatorState = new IncubatorElementState(this);
+		this.state = inboxState;
+		this.box = box;
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void _do() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void activate(String entitledOfAction) throws DomainException {
+		//save old entitled in properties
+		if(properties == null){
+			properties = new HashMap<String, ValueObject>();
+		}
+		properties.put(ENTITLED_ELT_PROPERTY, new Property(entitled));
+		entitled = entitledOfAction;
+		active = true;
+		state.activate();
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void activate() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void collect() throws DomainException {
+		state.collect();
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void collect() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void defer() throws DomainException {
+		state.defer();
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void defer() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void delegate() throws DomainException {
+		state.delegate();
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void delegate() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void doIt() throws Exception {
+		state.doIt();
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void eleminate() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void eleminate() throws DomainException {
+		state.eliminate();
 	}
 
 	/**
@@ -156,17 +154,8 @@ public class Element extends Entity<ElementId> {
 		return properties;
 	}
 
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void incubate() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void incubate() throws DomainException {
+		state.incubate();
 	}
 
 	/**
@@ -183,31 +172,8 @@ public class Element extends Entity<ElementId> {
 		return done;
 	}
 
-	/**
-	 * /* (non-Javadoc) * @see DomainObject#isSameAs(DomainObject _do)
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	@Override
-	public boolean isSameAs(DomainObject _do) {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-		return false;
-		// end-user-code
-	}
-
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated 
-	 *            "UML vers Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	public void reference() {
-		// begin-user-code
-		// TODO Module de remplacement de méthode auto-généré
-
-		// end-user-code
+	public void reference() throws DomainException {
+		state.reference();
 	}
 
 	/**
@@ -240,5 +206,47 @@ public class Element extends Entity<ElementId> {
 	 */
 	public void setProperties(Map<String, ValueObject> properties) {
 		this.properties = properties;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	final void setState(ElementState state) {
+		this.state = state;
+	}
+
+	/**
+	 * @return the box
+	 */
+	public final Box getBox() {
+		return box;
+	}
+
+	/**
+	 * @param box the box to set
+	 */
+	public final void setBox(Box box) {
+		this.box = box;
+	}
+
+	/**
+	 * @return the inboxState
+	 */
+	final ElementState getInboxState() {
+		return inboxState;
+	}
+
+	/**
+	 * @return the trashState
+	 */
+	final ElementState getTrashState() {
+		return trashState;
+	}
+
+	/**
+	 * @return the incubatorState
+	 */
+	final ElementState getIncubatorState() {
+		return incubatorState;
 	}
 }

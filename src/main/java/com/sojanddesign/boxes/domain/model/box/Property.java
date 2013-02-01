@@ -17,44 +17,46 @@
  */
 package com.sojanddesign.boxes.domain.model.box;
 
+import com.sodcube.domain.core.DomainObject;
+import com.sodcube.domain.core.ValueObject;
+
 /**
- * Simple factory of BoxManagementPolicy.
- * 
+ * TODO Property
  * @author Marie Acevedo (http://www.sojanddesign.com)
- * @version 25 Jan. 2013 - 0.1
+ * @version 29 janv. 2013 - 0.1
  */
-final class BoxManagementFactory {
+public class Property extends ValueObject {
+	
+	/**
+	 * generated serial version UID
+	 */
+	private static final long serialVersionUID = 6449428333803025010L;
+	private final String value;
 
 	/**
-	 * Default private constructor
+	 * 
 	 */
-	private BoxManagementFactory() {
+	public Property(String value) {
+		this.value = value;
 	}
 
 	/**
-	 * Creating BoxManagementPolicy from the box specified
-	 * @param box box to manage
-	 * @return the BoxManagementPolicy created
+	 * @see com.sodcube.domain.core.DomainObject#isSameAs(com.sodcube.domain.core.DomainObject)
 	 */
-	final static BoxManagementPolicy createBoxManagementPolicy(Box box) {
-		BoxManagementPolicy policy = null;
-		switch (box.getType()) {
-		case INBOX:
-			policy = new InboxManagementPolicy(box);
-			break;
-		case TRASH:
-			policy = new TrashManagementPolicy(box);
-			break;
-		case INCUBATOR:
-			policy = new IncubatorManagementPolicy(box);
-			break;
-		case NEXT_ACTIONS:
-			policy = new NextActionsManagementPolicy(box);
-			break;
-		default:
-			policy = new InboxManagementPolicy(box);
-			break;
+	@Override
+	public boolean isSameAs(DomainObject dob) {
+		boolean isSameAs = false;
+		if(dob != null  && dob instanceof Property){
+			isSameAs = ((Property)dob).getValue().equals(value);
 		}
-		return policy;
+		return isSameAs;
 	}
+
+	/**
+	 * @return the value
+	 */
+	public final String getValue() {
+		return value;
+	}
+
 }

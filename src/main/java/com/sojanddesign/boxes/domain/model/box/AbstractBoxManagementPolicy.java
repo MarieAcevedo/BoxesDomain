@@ -53,7 +53,6 @@ abstract class AbstractBoxManagementPolicy implements BoxManagementPolicy {
 	 * @throws DomainException if element specified is null
 	 * @see com.sojanddesign.boxes.domain.model.box.box.BoxManagementPolicy#putIn(com.sojanddesign.boxes.domain.model.box.box.Element)
 	 */
-	@Override
 	public boolean putIn(Element elt) throws DomainException {
 		if(elt == null){
 			throw new DomainException("The element put in the box is null.");
@@ -73,7 +72,6 @@ abstract class AbstractBoxManagementPolicy implements BoxManagementPolicy {
 	 * @throws DomainException if the specified element is not the last in element
 	 * @see com.sojanddesign.boxes.domain.model.box.box.BoxManagementPolicy#pull(com.sojanddesign.boxes.domain.model.box.box.Element)
 	 */
-	@Override
 	public boolean pull(Element elt) throws DomainException {
 		if(elt == null){
 			throw new DomainException("The element pull of the box is null.");
@@ -90,7 +88,6 @@ abstract class AbstractBoxManagementPolicy implements BoxManagementPolicy {
 	 * @throws NoBehaviorException no default behavior 
 	 * @see com.sojanddesign.boxes.domain.model.box.BoxManagementPolicy#nextElement()
 	 */
-	@Override
 	public Element nextElement() throws NoBehaviorException {
 		throw new NoBehaviorException("No default behavior for method BoxManagementPoliy.nextElement.");
 	}

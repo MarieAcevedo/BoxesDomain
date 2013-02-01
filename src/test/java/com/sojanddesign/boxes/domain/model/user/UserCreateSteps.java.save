@@ -1,0 +1,107 @@
+/**
+ * Copyright 2013 Marie Acevedo (http://www.sojanddesign.com)
+ * This file is part of Framework So'D Cube (http://www.sojanddesign.com/Sodcube).
+ *
+ * Framework So'D Cube is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Framework So'D Cube is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Framework So'D Cube.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.sojanddesign.boxes.domain.model.user;
+
+import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
+
+
+/**
+ * TODO UserCreateSteps
+ * @author Marie Acevedo (http://www.sojanddesign.com)
+ * @version 30 janv. 2013 - 0.1
+ */
+public class UserCreateSteps {
+
+	/**
+	 * 
+	 */
+	public UserCreateSteps() {
+	}
+	
+	@Given("$email of the user is not already registered on Boxes")
+	public void isNotAlreadyRegisteredEmail(String email){
+		
+	}
+	
+	@Given("$userName does not want to import an external account")
+	public void doNotWantToImportExternalAccount(String userName){
+		
+	}
+	
+	@Given("$userName is on the registration page")
+	public void goRegistrationPage(){
+		
+	}
+	
+	@When("they enter in the email address field $email")
+	public void enterEmailField(String email) {
+		
+	}
+	
+	@When("enter in the user name field $userName")
+	public void enterUserNameField(String userName) {
+		
+	}
+
+	@When("enter in the password field $password")
+	public void enterPasswordField(String password) {
+		
+	}
+	
+	@When("enter in the password confirm field  $passwordConfirm")
+	public void enterPasswordConfirmField(String passwordConfirm) {
+		
+	}
+	
+	@When("click on the submit button in the registration form")
+	public void submitRegistrationForm() {
+		
+	}
+	
+	@Then("Boxes creates an account for $email")
+	public void createAccount(String email){
+		
+	}
+	
+	@Then("Boxes sends an activation email to $email")
+	public void sendActivationEmail(String email){
+		
+	}
+	
+	@Then("displays the waiting $message for account activation")
+	public void displayWaitingMessageForActiviationAccount(String message){
+		
+	}
+	
+	@Given("$email is already registered on Boxes")
+	public void isAlreadyRegisteredEmail(String email){
+		
+	}
+
+	@Then("Boxes must identifiy that $email already exists")
+	public void findEmailThatAlreadyExist(String email){
+		
+	}
+
+	@Then("must display on registration page a unsuccessful $message with focus on email field")
+	public void displayRegistrationPageWithMessage(String message){
+		
+	}
+}

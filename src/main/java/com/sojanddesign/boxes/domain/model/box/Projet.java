@@ -38,8 +38,7 @@ public class Projet extends Element {
 	 */
 	private Set<Element> elements;
 
-	public Projet(ElementId uniqueIdentifier) throws DomainException {
-		super(uniqueIdentifier);
-		// TODO Auto-generated constructor stub
+	public Projet(ElementId uniqueIdentifier, Box box) throws DomainException {
+		super(uniqueIdentifier, box);
 	}
 }

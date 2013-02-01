@@ -38,10 +38,12 @@ public class User extends Entity<UserId> {
 	 */
 	private static final long serialVersionUID = 6759287467150584116L;
 	private List<Box> boxes;
-	private String login;
-	private String name;
-	private String password;
-
+	private AccountSettings accountSettings;
+	/**
+	 * true if registration user has been validated by mail
+	 */
+	private boolean active;
+	
 	/**
 	 * Default constructor with uniqueIdentifier
 	 * 
@@ -51,6 +53,7 @@ public class User extends Entity<UserId> {
 	 */
 	public User(UserId uniqueIdentifier) throws DomainException {
 		super(uniqueIdentifier);
+		active = false;
 	}
 
 	/**
@@ -60,26 +63,6 @@ public class User extends Entity<UserId> {
 		return boxes;
 	}
 
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
 
 	/**
 	 * @param boxes
@@ -90,27 +73,32 @@ public class User extends Entity<UserId> {
 	}
 
 	/**
-	 * @param login
-	 *            the login to set
+	 * @return the accountSettings
 	 */
-	public void setLogin(String login) {
-		this.login = login;
+	public final AccountSettings getAccountSettings() {
+		return accountSettings;
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * @param accountSettings the accountSettings to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public final void setAccountSettings(AccountSettings accountSettings) {
+		this.accountSettings = accountSettings;
 	}
 
 	/**
-	 * @param password
-	 *            the password to set
+	 * @return the active
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public final boolean isActive() {
+		return active;
 	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public final void setActive(boolean active) {
+		this.active = active;
+	}
+
 
 }

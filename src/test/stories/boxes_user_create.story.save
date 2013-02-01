@@ -1,0 +1,42 @@
+A user wants to create an account on Boxes
+
+Meta:
+@author Marie Acevedo (http://www.sojanddesign.com/)
+@version 30 Janv. 2013
+
+Narrative: 
+In order to connect and use Boxes
+As a user of the Web
+I want to sign up on Boxes
+     
+Scenario:  Manual registration on Boxes
+ 
+Given [email] of the user is not already registered on Boxes
+And [userName] does not want to import an external account
+And [userName] is on the registration page
+When they enter in the email address field [email]
+And enter in the user name field [userName]
+And enter in the password field [password]
+And enter in the password confirm field  [passwordConfirm]
+And click on the submit button in the registration form
+Then Boxes creates an account for [email]
+And Boxes sends an activation email to [email]
+And displays the waiting [message] for account activation
+
+Scenario:  a user account already exists
+ 
+Given [email] is already registered on Boxes
+And [userName] does not want to import an external account
+And [userName] is on the registration page
+When they enter in the email address field [email]
+And enter in the user name field [userName]
+And enter in the password field [password]
+And enter in the password field confirm [passwordConfirm]
+And click on the submit button in the registration form
+Then Boxes must identifiy that [email] already exists
+And must display on registration page a unsuccessful [message] with focus on email field
+
+Examples:
+|email|userName|password|passwordConfirm|message|
+|sojanddesign@gmail.com|sojanddesign|motdepasse|motdepasse|An email was sent to you at the address given, thank you for not answering and decliquer on the link to validate your account and activate it.|
+|already@exist.com|alreadyExist|motdepasse|motdepasse|Cet email est déjà utilisé, avez-vous perdu votre mot de passe?|
