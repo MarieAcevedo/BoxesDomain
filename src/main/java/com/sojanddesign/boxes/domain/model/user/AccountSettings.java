@@ -17,6 +17,8 @@
  */
 package com.sojanddesign.boxes.domain.model.user;
 
+import java.util.Date;
+
 import com.sodcube.domain.core.DomainObject;
 import com.sodcube.domain.core.ValueObject;
 
@@ -35,6 +37,7 @@ public class AccountSettings extends ValueObject {
 	private final String email;
 	private final String userName;
 	private final String password;
+	private final Date creationDate;
 
 	/**
 	 * default constructor
@@ -46,8 +49,21 @@ public class AccountSettings extends ValueObject {
 		this.email = email;
 		this.userName = userName;
 		this.password = password;
+		creationDate = new Date();//today
 	}
 
+	/**
+	 * default constructor
+	 * @param email 
+	 * @param userName
+	 * @param password
+	 */
+	public AccountSettings(String email, String userName, String password, Date creationDate) {
+		this.email = email;
+		this.userName = userName;
+		this.password = password;
+		this.creationDate = creationDate;
+	}
 	/**
 	 * @see com.sodcube.domain.core.DomainObject#isSameAs(com.sodcube.domain.core.DomainObject)
 	 */
@@ -81,6 +97,13 @@ public class AccountSettings extends ValueObject {
 	 */
 	public final String getPassword() {
 		return password;
+	}
+
+	/**
+	 * @return the creationDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
 }

@@ -41,12 +41,12 @@ public class BoxesUserCreate extends JUnitStories {
  
 	@Override
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps());
+		return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps(), new DomainBoxesUserActivateSteps());
 	}
  
 	@Override
 	protected List<String> storyPaths() {
-		return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story");
+		return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story","com/sojanddesign/boxes/domain/model/user/boxesdomain_user_activateaccount.story");
 	}
 
 }

@@ -17,14 +17,19 @@
  */
 package com.sojanddesign.boxes.domain.model.user;
 
-import org.jbehave.core.annotations.Composite;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Pending;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 import com.sodcube.domain.exception.DomainException;
 

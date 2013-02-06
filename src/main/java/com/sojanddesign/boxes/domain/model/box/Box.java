@@ -244,6 +244,7 @@ public class Box extends Entity<BoxId> {
 	 * Finds an element using given id
 	 * @param id element identifier
 	 * @return {@link Element} if is found, else {@code null}
+	 * 
 	 */
 	public Element findElementById(ElementId id){
 		Element elt = null;

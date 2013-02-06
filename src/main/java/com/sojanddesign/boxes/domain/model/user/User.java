@@ -17,11 +17,19 @@
  */
 package com.sojanddesign.boxes.domain.model.user;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Instant;
 
 import com.sodcube.domain.core.Entity;
 import com.sodcube.domain.exception.DomainException;
 import com.sojanddesign.boxes.domain.model.box.Box;
+import com.sojanddesign.boxes.domain.model.box.BoxId;
+import com.sojanddesign.boxes.domain.model.box.TypeBox;
+import static com.sojanddesign.boxes.domain.model.box.TypeBox.*;
 
 /**
  * The system user is a root entity of user's aggregates. It's the owner of the
@@ -34,9 +42,14 @@ import com.sojanddesign.boxes.domain.model.box.Box;
 public class User extends Entity<UserId> {
 
 	/**
+	 * 
+	 */
+	private static final int NB_INITIAL_BOXES = 5;
+	/**
 	 * generated serial version UID
 	 */
 	private static final long serialVersionUID = 6759287467150584116L;
+	private static final int NB_ACTIVATION_DAY_MAX = 3;
 	private List<Box> boxes;
 	private AccountSettings accountSettings;
 	/**
@@ -98,6 +111,51 @@ public class User extends Entity<UserId> {
 	 */
 	public final void setActive(boolean active) {
 		this.active = active;
+	}
+
+	/**
+	 * Active the current user and initialize default boxes for him.
+	 * @throws ExpirationActivationUserException if creation date is greater than {@code NB_ACTIVATION_DAY_MAX}
+	 */
+	public void activate() throws DomainException {
+		int nbDay = Days.daysBetween(new DateTime(this.accountSettings.getCreationDate()),Instant.now()).getDays();
+		if(nbDay > NB_ACTIVATION_DAY_MAX){
+			active = false;
+			throw new ExpirationActivationUserException("The activation request has exceeded the period of " + NB_ACTIVATION_DAY_MAX +" days for "+accountSettings.getEmail());
+		}
+		intializeDefaultBoxes();
+		active = true;
+	}
+
+	/**
+	 * Default boxes are intializing with : inbox, trash, next actions, less than two minutes actions and incubator. 
+	 * @throws DomainException 
+	 */
+	private void intializeDefaultBoxes() throws DomainException {
+		if (boxes == null){
+			boxes = new ArrayList<Box>(NB_INITIAL_BOXES);
+		}
+		boxes.add(new Box(generateBoxId(INBOX), "inbox", this, INBOX));
+		boxes.add(new Box(generateBoxId(TRASH), "trash", this, TRASH));
+		boxes.add(new Box(generateBoxId(NEXT_ACTIONS), "next actions", this, NEXT_ACTIONS));
+		boxes.add(new Box(generateBoxId(LESS_THAN_TWO_MINUTES_ACTIONS), "less than two minutes actions", this, LESS_THAN_TWO_MINUTES_ACTIONS));
+		boxes.add(new Box(generateBoxId(INCUBATOR), "incubator", this, INCUBATOR));
+	}
+	
+	/**
+	 * Generate BoxId like [TypeBox]-[UserId.id]-[position in list]
+	 * @param type type of the box
+	 * @return id of the creating box
+	 * @throws DomainException if id is {@code null}
+	 */
+	private BoxId generateBoxId(final TypeBox type) throws DomainException{
+		final String separator = "-";
+		StringBuffer id = new StringBuffer(type.toString());
+		id.append(separator);
+		id.append(getUniqueIdentifier().getId());
+		id.append(separator);
+		id.append(boxes.size()+1);
+		return new BoxId(id.toString());
 	}
 
 

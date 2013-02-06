@@ -25,6 +25,7 @@ import com.sojanddesign.boxes.domain.model.user.User;
  * BoxRepository is class to manage lyfe cycle of {@link Box}, and {@link Element}
  * @author Marie Acevedo (http://www.sojanddesign.com)
  * @version 28 Jan. 2013 - 0.1
+ * @deprecated Box is not aggregate
  */
 public interface BoxRepository {
 
