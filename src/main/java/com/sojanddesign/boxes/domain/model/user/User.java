@@ -36,8 +36,8 @@ import static com.sojanddesign.boxes.domain.model.box.TypeBox.*;
  * boxes.
  * 
  * @author Marie Acevedo (http://www.sojanddesign.com)
+ * @version 22 aout 2013 - 0.2 add method <code>findBoxByType</code>
  * @version 24 jan. 2013 - 0.1
- * 
  */
 public class User extends Entity<UserId> {
 
@@ -76,7 +76,25 @@ public class User extends Entity<UserId> {
 		return boxes;
 	}
 
-
+	/**
+	 * Looking for box using given type.
+	 * @param type type of the box wanted.
+	 * @return box, if it found else {@code null}.
+	 */
+	public Box findBoxByType(final TypeBox type){
+		if(boxes == null){
+			throw new IllegalStateException("No box available in the system.");
+		}
+		Box boxFound = null;
+		for (Box currentBox : boxes) {
+			if(currentBox.getType().equals(type)){
+				boxFound = currentBox;
+				break;
+			}
+		}
+		return boxFound;
+	}
+	
 	/**
 	 * @param boxes
 	 *            the boxes to set

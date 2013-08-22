@@ -36,7 +36,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#collect()
 	 */
-	@Override
 	public void collect() throws DomainException {
 		// TODO Auto-generated method stub
 
@@ -45,7 +44,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#defer()
 	 */
-	@Override
 	public void defer() {
 		// TODO Auto-generated method stub
 
@@ -54,7 +52,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#delegate()
 	 */
-	@Override
 	public void delegate() {
 		// TODO Auto-generated method stub
 
@@ -63,7 +60,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#doIt()
 	 */
-	@Override
 	public void doIt() {
 		// TODO Auto-generated method stub
 
@@ -72,7 +68,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#eliminate()
 	 */
-	@Override
 	public void eliminate() throws DomainException {
 		// TODO Auto-generated method stub
 
@@ -81,7 +76,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#incubate()
 	 */
-	@Override
 	public void incubate() {
 		// TODO Auto-generated method stub
 
@@ -90,7 +84,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#reference()
 	 */
-	@Override
 	public void reference() {
 		// TODO Auto-generated method stub
 
@@ -99,7 +92,6 @@ class IncubatorElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#activate()
 	 */
-	@Override
 	public void activate() throws DomainException {
 		// TODO Auto-generated method stub
 		

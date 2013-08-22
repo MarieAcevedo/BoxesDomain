@@ -25,6 +25,8 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.runner.RunWith;
 
+import com.sojanddesign.boxes.domain.model.box.DomainBoxesCollectSteps;
+
 import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 
 /**
@@ -41,12 +43,12 @@ public class BoxesUserCreate extends JUnitStories {
  
 	@Override
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps(), new DomainBoxesUserActivateSteps());
+		return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps(), new DomainBoxesUserActivateSteps(),new DomainBoxesCollectSteps());
 	}
  
 	@Override
 	protected List<String> storyPaths() {
-		return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story","com/sojanddesign/boxes/domain/model/user/boxesdomain_user_activateaccount.story");
+		return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story","com/sojanddesign/boxes/domain/model/user/boxesdomain_user_activateaccount.story","com/sojanddesign/boxes/domain/model/box/boxesdomain_elements_collect.story");
 	}
 
 }

@@ -41,6 +41,8 @@ import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
 
+import com.sojanddesign.boxes.domain.model.box.DomainBoxesCollectSteps;
+
 /**
  * TODO BoxesStories
  * @author Marie Acevedo (http://www.sojanddesign.com)
@@ -88,12 +90,14 @@ public class BoxesStories extends JUnitStories{
 	 
 	    @Override
 	    public InjectableStepsFactory stepsFactory() {
-	        return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps(), new DomainBoxesUserActivateSteps());
+	        return new InstanceStepsFactory(configuration(), new DomainBoxesUserCreateSteps(), new DomainBoxesUserActivateSteps(), new DomainBoxesCollectSteps());
 	    }
 	     
 	    @Override
 	    protected List<String> storyPaths() {
 	        // Specify story paths as URLs
-			return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story","com/sojanddesign/boxes/domain/model/user/boxesdomain_user_activateaccount.story");
+			return Arrays.asList("com/sojanddesign/boxes/domain/model/user/boxesdomain_user_create.story",
+					"com/sojanddesign/boxes/domain/model/user/boxesdomain_user_activateaccount.story",
+					"com/sojanddesign/boxes/domain/model/box/boxesdomain_elements_collect.story");
 	    }
 }

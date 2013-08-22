@@ -44,14 +44,7 @@ abstract class AbstractElementState implements ElementState {
 	 * @return box, if it found else {@code null}.
 	 */
 	protected Box findTargetBox(TypeBox type) {
-		Box box = null;
-		for (Box b : element.getBox().getOwner().getBoxes()) {
-			if(b.getType().equals(type)){
-				box = b;
-				break;
-			}
-		}
-		return box;
+		return element.getBox().getOwner().findBoxByType(type);
 	}
 	
 	/**

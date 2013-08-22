@@ -36,7 +36,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#activate()
 	 */
-	@Override
 	public void activate() throws DomainException {
 		// TODO Auto-generated method stub
 
@@ -45,7 +44,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#collect()
 	 */
-	@Override
 	public void collect() throws DomainException {
 		throw new IllegalElementStateException("An element cannot be collected when it is in the next actions box.");
 	}
@@ -53,7 +51,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#defer()
 	 */
-	@Override
 	public void defer() throws DomainException {
 		// TODO Auto-generated method stub
 
@@ -62,7 +59,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#delegate()
 	 */
-	@Override
 	public void delegate() throws DomainException {
 		// TODO Auto-generated method stub
 
@@ -71,7 +67,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#doIt()
 	 */
-	@Override
 	public void doIt() throws DomainException {
 		// TODO Auto-generated method stub
 
@@ -80,7 +75,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#eliminate()
 	 */
-	@Override
 	public void eliminate() throws DomainException {
 		switchNotActivableElement(TypeBox.TRASH, element.getTrashState());
 	}
@@ -88,7 +82,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#incubate()
 	 */
-	@Override
 	public void incubate() throws DomainException {
 		switchNotActivableElement(TypeBox.INCUBATOR, element.getIncubatorState());
 	}
@@ -96,7 +89,6 @@ public class NextActionsElementState extends AbstractElementState {
 	/**
 	 * @see com.sojanddesign.boxes.domain.model.box.ElementState#reference()
 	 */
-	@Override
 	public void reference() throws DomainException {
 		throw new IllegalElementStateException("An active element cannot be referenced when it is in the next actions box.");
 	};
